@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+<html lang="en">
+<head>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row"> @Html.Raw(TempData["msg"]) </div>
+
+        <div class="row"> <h2> Редактирование товара </h2> </div>
+
+
+        <div class="row h-100 justify-content-center align-items-center">
+
+            @using (Html.BeginForm("EditProductRedact", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <table class="tableEnergy tableEditCenter">
+
+                    <input type="hidden" name="Id" value="@Model.Id">
+                    <tr class="formEnergy formEnergyAdd ">
+                        <td><input value="@Model.Name" type="text" name="Name" /></td>
+                    <tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><input value="@Model.Price" type="number" name="Price" /></td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td> <textarea name="DescriptionText" cols="50">@Model.DescriptionText</textarea></td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td> <img src="~/Content/ProductImg/@Model.DescriptionImg" name="DescriptionText" /> </td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><input type="file" name="file" class="btn btn-success" value="Загрузить файл" /></td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td> <button class="btn btn-success" type="submit">Изменить</button></td>
+                    </tr>
+                </table>
+            }
+
+            <div class="col btnDelete">
+                @using (Html.BeginForm("EditProductRemove", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Id" value="@Model.Id">
+                    <input type="hidden" name="Name" value="@Model.Name">
+                    <input type="hidden" name="Price" value="@Model.Price">
+                    <input type="hidden" name="DescriptionImg" value="@Model.DescriptionImg">
+                    <input type="hidden" name="DescriptionText" value="@Model.DescriptionText">
+                    <button type="submit" class="btn btn-danger">Удалить </button>
+                    
+                }
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+

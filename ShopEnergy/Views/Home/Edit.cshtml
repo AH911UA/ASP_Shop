@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ShopEnergy.Models.Product>
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<html lang="en">
+<head>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row"> @Html.Raw(TempData["msg"]) </div>
+
+        <div class="row"> <h2> Добавить товар </h2> </div>
+
+        <div class="row">
+            @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <table>
+
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><input placeholder="Именование" type="text" name="Name" /></td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><input placeholder="Цена" type="number" name="Price" /></td>
+                    </tr>
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><textarea name="DescriptionText" placeholder="Описание" cols="50"> </textarea></td>
+                    </tr>
+
+                    <tr class="formEnergy formEnergyAdd">
+                        <td><input type="file" name="file" class="btn btn-success" value="Загрузить файл" /></td>
+                    </tr>
+
+                    <tr>
+                        <td> <button class="btn btn-success" type="submit">Добавить</button></td>
+                    </tr>
+
+                </table>
+            }
+        </div>
+
+
+    </div>
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            <table class="table tableEnergyEdit">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Описание</th>
+                        <th>Представление</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ShopEnergy.Models.Product b in Model)
+                    {
+                        using (Html.BeginForm("EditProduct", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <tr class="formEnergy">
+                                <td scope="row"><input value="@b.Id" name="Id" readonly /> </td>
+                                <td><input value="@b.Name" type="text" readonly /></td>
+                                <td><input value="@b.Price" readonly /></td>
+                                <td><textarea disabled cols="50"> @b.DescriptionText </textarea></td>
+                                <td><img src="~/Content/ProductImg/@b.DescriptionImg" /> </td>
+                                <td> <input type="submit" value="Изменить" class="box" /></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+

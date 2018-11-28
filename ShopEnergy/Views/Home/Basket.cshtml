@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Мои товары";
+}
+
+<h2> @ViewBag.Title</h2>
+
+<div class="row"> @Html.Raw(TempData["makeOrder"]) </div>
+
+<table class="table tableEnergy">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Описание</th>
+            <th>Представление</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ShopEnergy.Models.Product b in Model)
+        {
+            <form method="post" action="/Home/RemoveProduct">
+                <tr class="formEnergy">
+
+                    <td scope="row"> <input value="@b.Id" name="Id" readonly /> </td>
+
+                    <td><input value="@b.Name" type="text" name="Name" readonly /></td>
+                    <td><input value="@b.Price" name="Price" readonly /></td>
+                    <td><textarea name="DescriptionText" disabled cols="50"> @b.DescriptionText </textarea></td>
+                    <td><img src="~/Content/ProductImg/@b.DescriptionImg" /> </td>
+                    <td> <input type="submit" value="Удалить" readonly class="box" /> </td>
+
+                </tr>
+            </form>
+        }
+
+
+        @using (Html.BeginForm("MakeOrder", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        <td scope="row">
+            <button type="submit" class="btn btn-danger">Оформить заказ</button>
+        </td>
+    }
+
+        </tbody>
+    </table>
+
+
